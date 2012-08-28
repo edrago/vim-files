@@ -1,15 +1,35 @@
 " Startup Options "
 set nocompatible
+
+let g:pathogen_disabled = ['paredit']
 call pathogen#infect()
 call pathogen#helptags()
+
+if &term =~ '^\(xterm\|screen\)$' && $COLORTERM == 'gnome-terminal'
+  set t_Co=256
+  let g:CSApprox_eterm = 0
+  let g:CSApprox_konsole = 0
+  let g:CSApprox_use_showrgb = 1
+else
+  let g:CSApprox_loaded = 0
+  set t_Co=16
+endif
 
 let mapleader=","
 let maplocalleader=","
 
-map <F2> :NERDTreeToggle<CR>
 map <F3> :call TabCompletion()<CR>
 nmap <silent> <leader>wm :call MarkWindowSwap()<CR>
 nmap <silent> <leader>wp :call DoWindowSwap()<CR>
+"inoremap  <Up>     <NOP>
+"inoremap  <Down>   <NOP>
+"inoremap  <Left>   <NOP>
+"inoremap  <Right>  <NOP>
+"noremap   <Up>     <NOP>
+"noremap   <Down>   <NOP>
+"noremap   <Left>   <NOP>
+"noremap   <Right>  <NOP>
+
 
 
 """"""""""""""""""
@@ -24,7 +44,7 @@ let vimclojure#HighlightContrib = 1
 let vimclojure#DynamicHighlighting = 1
 let vimclojure#ParenRainbow = 1
 let vimclojure#WantNailgun = 1
-let vimclojure#NailgunClient = $HOME . "/.vim/lib/vimclojure-nailgun-client/ng"
+let vimclojure#NailgunClient = $HOME . "/.vim/lib/ng"
 
 
 """"""""""""""""""""
@@ -64,17 +84,11 @@ set tabstop=4
 """""""""""""""""
 set number
 set list
-set listchars=tab:▸\ ,eol:¬
-"set t_Co=16
-"colorscheme solarized
-"if has('gui_running')
-"  set background=light
-"else
-"  set background=light
-"endif
-  
-"let g:solarized_termcolors=16
+set listchars=tab:▸\
 
+"let g:solarized_termcolors=256
+"set background=dark
+colorscheme molokai
 
 """""""""""
 " SCRIPTS "

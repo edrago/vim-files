@@ -26,5 +26,5 @@ clean:
 	@echo "If you have a Windows binary, 'make clean' won't delete it."
 	@echo "You must remove this manually.  Most users won't have MinGW"
 	@echo "installed - so I'd rather not delete something they can't rebuild."
-#	rm ng
+	rm ng
 #	rm ng.exe

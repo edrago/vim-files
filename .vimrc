@@ -1,50 +1,42 @@
+"""""""""""""""""""
 " Startup Options "
+"""""""""""""""""""
 set nocompatible
 
-let g:pathogen_disabled = ['paredit']
+filetype off
+let g:pathogen_disabled = ['paredit','vim-clojure-sql']
 call pathogen#infect()
 call pathogen#helptags()
 
-if &term =~ '^\(xterm\|screen\)$' && $COLORTERM == 'gnome-terminal'
+filetype plugin indent on
+
+
+"if &term =~ '^\(xterm\|screen\)$' && $COLORTERM == 'gnome-terminal'
+if has("gui_running")
+  let g:CSApprox_loaded = 0
+else
   set t_Co=256
+  let g:solarized_termcolors=256
   let g:CSApprox_eterm = 0
   let g:CSApprox_konsole = 0
   let g:CSApprox_use_showrgb = 1
-else
-  let g:CSApprox_loaded = 0
-  set t_Co=16
 endif
 
+
+"""""""""""""""
+" Key Mapings "
+"""""""""""""""
 let mapleader=","
 let maplocalleader=","
-
-map <F3> :call TabCompletion()<CR>
 nmap <silent> <leader>wm :call MarkWindowSwap()<CR>
 nmap <silent> <leader>wp :call DoWindowSwap()<CR>
-"inoremap  <Up>     <NOP>
-"inoremap  <Down>   <NOP>
-"inoremap  <Left>   <NOP>
-"inoremap  <Right>  <NOP>
+nnoremap j gj
+nnoremap k gk
+nnoremap ; :
 "noremap   <Up>     <NOP>
 "noremap   <Down>   <NOP>
 "noremap   <Left>   <NOP>
 "noremap   <Right>  <NOP>
-
-
-
-""""""""""""""""""
-" Plugin Options "
-""""""""""""""""""
-syntax on
-filetype plugin indent on
-
-let vimclojure#FuzzyIndent = 1
-let vimclojure#HighlightBuiltins = 1
-let vimclojure#HighlightContrib = 1
-let vimclojure#DynamicHighlighting = 1
-let vimclojure#ParenRainbow = 1
-let vimclojure#WantNailgun = 1
-let vimclojure#NailgunClient = $HOME . "/.vim/lib/ng"
 
 
 """"""""""""""""""""
@@ -59,6 +51,7 @@ set noswapfile
 set laststatus=2
 set statusline=%f\ %h%m\ [%{strlen(&fenc)?&fenc:'none'}/%{&ff}/%Y]\ %=%h\%c,%l/%L\ \ \ %P
 set title
+set relativenumber
 set wildmenu
 
 "" File
@@ -70,25 +63,23 @@ set encoding=utf8
 
 "" Formating
 set autoindent
-set smartindent
 set clipboard=unnamed
 "Use spaces instead of tabs
 set expandtab
 set smarttab
-set shiftwidth=2
 set tabstop=4
+set shiftwidth=4
 
 
 """""""""""""""""
 " Style options "
 """""""""""""""""
-set number
+syntax on
 set list
 set listchars=tab:▸\
 
-"let g:solarized_termcolors=256
-"set background=dark
-colorscheme molokai
+"set background=light
+colorscheme molokai-losh
 
 """""""""""
 " SCRIPTS "
@@ -112,17 +103,3 @@ function! DoWindowSwap()
     "Hide and open so that we aren't prompted and keep history
     exe 'hide buf' markedBuf 
 endfunction
-
-" toggle tab completion
-function! TabCompletion()
-  if mapcheck("\<tab>", "i") != ""
-    :iunmap <tab>
-    :iunmap <s-tab>
-    echo "--tab completion OFF--"
-  else
-    :imap <tab> <c-n>
-    :imap <s-tab> <c-p>
-    echo "--tab completion ON--"
-  endif
-endfunction
-

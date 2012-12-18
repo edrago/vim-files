@@ -4,16 +4,17 @@
 set nocompatible
 
 filetype off
-let g:pathogen_disabled = ['paredit','vim-clojure-sql']
+
+let g:pathogen_disabled = ['paredit', 'vim-clojure-sql', 'vim-javascript-syntax']
 call pathogen#infect()
 call pathogen#helptags()
 
 filetype plugin indent on
 
-
 "if &term =~ '^\(xterm\|screen\)$' && $COLORTERM == 'gnome-terminal'
 if has("gui_running")
   let g:CSApprox_loaded = 0
+  set lines=999 columns=999
 else
   set t_Co=256
   let g:solarized_termcolors=256
@@ -78,8 +79,12 @@ syntax on
 set list
 set listchars=tab:▸\
 
-"set background=light
-colorscheme molokai-losh
+if strftime("%H") < 18
+    set background=light
+    colorscheme solarized
+else
+    colorscheme liquidcarbon
+endif
 
 """""""""""
 " SCRIPTS "

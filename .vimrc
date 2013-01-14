@@ -2,6 +2,7 @@
 " Startup Options "
 """""""""""""""""""
 set nocompatible
+set langmenu=en_US.UTF-8
 
 filetype off
 

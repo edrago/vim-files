@@ -6,16 +6,11 @@ set langmenu=en_US.UTF-8
 
 filetype off
 
-let g:pathogen_disabled = ['paredit', 'vim-clojure-sql', 'vim-javascript-syntax']
-call pathogen#infect()
-call pathogen#helptags()
-
 filetype plugin indent on
 
 "if &term =~ '^\(xterm\|screen\)$' && $COLORTERM == 'gnome-terminal'
 if has("gui_running")
   let g:CSApprox_loaded = 0
-  set lines=999 columns=999
 else
   set t_Co=256
   let g:solarized_termcolors=256

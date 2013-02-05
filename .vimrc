@@ -4,18 +4,12 @@
 set nocompatible
 set langmenu=en_US.UTF-8
 
-filetype off
-
 " Windows Compatibility
 if has('win32') || has('win64')
     set runtimepath=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after
 endif
 
-set rtp+=~/.vim/bundle/vundle
-call vundle#rc()
-
-source ~/.vim/.vundle.vim
-source ~/.vim/.vundle.colors.vim
+source ~/.vim/.vundle.vim " Vundle init and config
 
 filetype plugin indent on
 

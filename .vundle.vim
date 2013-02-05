@@ -1,5 +1,13 @@
+" Initialize Vundle
+filetype off
+set rtp+=~/.vim/bundle/vundle
+call vundle#rc()
+
 " Let Vundle handle itself
 Bundle 'gmarick/vundle'
+
+" Colors
+source ~/.vim/.vundle.colors.vim
 
 " Auxiliary vim plugins
 "Bundle 'sjl/splice.vim' "Don't play well with fugitive

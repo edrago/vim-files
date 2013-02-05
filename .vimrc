@@ -6,17 +6,36 @@ set langmenu=en_US.UTF-8
 
 filetype off
 
+" Windows Compatibility
+if has('win32') || has('win64')
+    set runtimepath=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after
+endif
+
+set rtp+=~/.vim/bundle/vundle
+call vundle#rc()
+
+source ~/.vim/.vundle.vim
+source ~/.vim/.vundle.colors.vim
+
 filetype plugin indent on
 
-"if &term =~ '^\(xterm\|screen\)$' && $COLORTERM == 'gnome-terminal'
 if has("gui_running")
-  let g:CSApprox_loaded = 0
+    let g:CSApprox_loaded = 0
+    set guioptions-=T
+    if has("gui_gtk2") || has("gui_gtk3")
+        set guifont=DejaVu\ Sans\ Mono\ 9,\ Monospace\ 10
+    else
+        set guifont=Consolas:h9,\ Andale\ Mono:h9
+    endif
 else
-  set t_Co=256
-  let g:solarized_termcolors=256
-  let g:CSApprox_eterm = 0
-  let g:CSApprox_konsole = 0
-  let g:CSApprox_use_showrgb = 1
+    if &term =~ '^\(xterm\|screen\)$' || $COLORTERM == 'gnome-terminal'
+        set t_Co=256
+        let g:solarized_termcolors=256
+        let g:CSApprox_eterm = 0
+        let g:CSApprox_konsole = 0
+        let g:CSApprox_use_showrgb = 1
+    endif
+    let g:CSApprox_loaded = 0
 endif
 
 
@@ -30,10 +49,10 @@ nmap <silent> <leader>wp :call DoWindowSwap()<CR>
 nnoremap j gj
 nnoremap k gk
 nnoremap ; :
-"noremap   <Up>     <NOP>
-"noremap   <Down>   <NOP>
-"noremap   <Left>   <NOP>
-"noremap   <Right>  <NOP>
+noremap   <Up>     <NOP>
+noremap   <Down>   <NOP>
+noremap   <Left>   <NOP>
+noremap   <Right>  <NOP>
 
 
 """"""""""""""""""""
@@ -65,7 +84,7 @@ set clipboard=unnamed
 set expandtab
 set smarttab
 set tabstop=4
-set shiftwidth=4
+set shiftwidth=2
 
 
 """""""""""""""""

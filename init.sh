@@ -4,10 +4,7 @@
 # This script fetch the Vundle repo and subsequently install all bundles.
 
 echo "Fetching Vundle repository..."
-cd bundle/vundle
-git pull origin
-
-cd .. && cd ..
-
+git submodule init
+git submodule update
 echo
 exec ./update-bundles.sh

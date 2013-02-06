@@ -13,26 +13,6 @@ source ~/.vim/.vundle.vim " Vundle init and config
 
 filetype plugin indent on
 
-if has("gui_running")
-    let g:CSApprox_loaded = 0
-    set guioptions-=T
-    if has("gui_gtk2") || has("gui_gtk3")
-        set guifont=DejaVu\ Sans\ Mono\ 9,\ Monospace\ 10
-    else
-        set guifont=Consolas:h9,\ Andale\ Mono:h9
-    endif
-else
-    if &term =~ '^\(xterm\|screen\)$' || $COLORTERM == 'gnome-terminal'
-        set t_Co=256
-        let g:solarized_termcolors=256
-        let g:CSApprox_eterm = 0
-        let g:CSApprox_konsole = 0
-        let g:CSApprox_use_showrgb = 1
-    endif
-    let g:CSApprox_loaded = 0
-endif
-
-
 """""""""""""""
 " Key Mapings "
 """""""""""""""
@@ -87,13 +67,45 @@ set shiftwidth=2
 syntax on
 set list
 set listchars=tab:▸\
+let time = strftime("%H")
 
-if strftime("%H") < 18
+if has("gui_running")
+  let g:CSApprox_loaded = 0
+  set guioptions-=T
+
+  if has("gui_gtk2") || has("gui_gtk3")
+    set guifont=DejaVu\ Sans\ Mono\ 9,\ Monospace\ 10
+  else
+    set guifont=Consolas:h9,\ Andale\ Mono:h9
+  endif
+
+  if time < 05 || time > 19
+    set background=dark
+    colorscheme liquidcarbon
+  else
     set background=light
     colorscheme solarized
+  endif
 else
-    colorscheme liquidcarbon
+  if &term =~ '^\(xterm\|screen\)$' || $COLORTERM == 'gnome-terminal'
+    set t_Co=256
+
+    let g:solarized_termcolors=256
+    let g:CSApprox_eterm = 0
+    let g:CSApprox_konsole = 0
+    let g:CSApprox_use_showrgb = 1
+
+    if time < 05 || time > 19
+      set background=dark
+      colorscheme hemisu
+    else
+      set background=light
+      colorscheme solarized
+    endif
+  endif
+  let g:CSApprox_loaded = 0
 endif
+
 
 """""""""""
 " SCRIPTS "
